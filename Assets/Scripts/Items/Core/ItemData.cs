@@ -33,12 +33,6 @@ public class ItemData : ScriptableObject
     public bool isInteractive = true;
 
     [Header("Detective")]
-    [Tooltip("Room or area where this clue was found")]
-    public string roomLocation;
-
-    [Tooltip("Mark as key evidence — highlighted in detective notebook")]
-    public bool isKeyEvidence;
-
     [Tooltip("Note automatically added to the detective notebook on first inspection")]
     [TextArea(2, 4)]
     public string clueNote;
