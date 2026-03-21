@@ -60,7 +60,7 @@ public class InspectionManager : MonoBehaviour
             item.gameObject.SetActive(false);
 
         // Hand off input
-        if (CharacterInputManager.Instance != null) CharacterInputManager.Instance.enabled = false;
+        if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
         if (navigationUI != null) navigationUI.enabled = false;
         if (inputHandler != null) inputHandler.enabled = true;
 
@@ -84,7 +84,7 @@ public class InspectionManager : MonoBehaviour
 
         // Restore input
         if (inputHandler != null) inputHandler.enabled = false;
-        if (CharacterInputManager.Instance != null) CharacterInputManager.Instance.enabled = true;
+        if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
         if (navigationUI != null) navigationUI.enabled = true;
 
         inspectionUI.Hide();

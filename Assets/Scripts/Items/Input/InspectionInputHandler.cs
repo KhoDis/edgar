@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 /// <summary>
 /// Handles all input while inspection mode is active.
@@ -13,6 +15,7 @@ public class InspectionInputHandler : MonoBehaviour
     private InputAction _zoomAction;
     private InputAction _exitAction;
     private InputAction _pointerPressAction;
+    private float _previousPinchDistance;
 
     void Awake()
     {
@@ -30,6 +33,8 @@ public class InspectionInputHandler : MonoBehaviour
 
         if (_exitAction != null)
             _exitAction.performed += OnExit;
+
+        EnhancedTouchSupport.Enable();
     }
 
     void OnEnable()
@@ -52,6 +57,8 @@ public class InspectionInputHandler : MonoBehaviour
     {
         if (_exitAction != null)
             _exitAction.performed -= OnExit;
+
+        EnhancedTouchSupport.Disable();
     }
 
     void Update()
@@ -64,7 +71,9 @@ public class InspectionInputHandler : MonoBehaviour
     {
         if (_rotateAction == null || _pointerPressAction == null) return;
 
-        // Only rotate while the pointer/finger is pressed
+        // Skip rotation when pinching
+        if (Touch.activeTouches.Count >= 2) return;
+
         if (!_pointerPressAction.IsPressed()) return;
 
         var delta = _rotateAction.ReadValue<Vector2>();
@@ -74,13 +83,35 @@ public class InspectionInputHandler : MonoBehaviour
 
     private void HandleZoom()
     {
+        // Pinch zoom (mobile)
+        if (Touch.activeTouches.Count == 2)
+        {
+            var t0 = Touch.activeTouches[0];
+            var t1 = Touch.activeTouches[1];
+
+            float currentDistance = Vector2.Distance(t0.screenPosition, t1.screenPosition);
+
+            if (t0.phase == UnityEngine.InputSystem.TouchPhase.Began ||
+                t1.phase == UnityEngine.InputSystem.TouchPhase.Began)
+            {
+                _previousPinchDistance = currentDistance;
+                return;
+            }
+
+            float delta = currentDistance - _previousPinchDistance;
+            _previousPinchDistance = currentDistance;
+
+            if (Mathf.Abs(delta) > 0.01f)
+                manager.ApplyZoom(delta);
+
+            return;
+        }
+
+        // Scroll wheel zoom (desktop)
         if (_zoomAction == null) return;
-
-        var zoom = _zoomAction.ReadValue<float>();
-        if (Mathf.Abs(zoom) > 0.01f)
-            manager.ApplyZoom(zoom);
-
-        // TODO Phase 7: pinch zoom via EnhancedTouchSupport
+        var scroll = _zoomAction.ReadValue<float>();
+        if (Mathf.Abs(scroll) > 0.01f)
+            manager.ApplyZoom(scroll);
     }
 
     private void OnExit(InputAction.CallbackContext ctx)

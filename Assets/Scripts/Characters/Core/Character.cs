@@ -5,7 +5,7 @@ using UnityEngine;
 /// Coordinates between visual representation, data, and actions.
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IInteractable
 {
     [SerializeField] private CharacterData data;
     

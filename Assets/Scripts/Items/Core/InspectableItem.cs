@@ -4,7 +4,7 @@ using UnityEngine;
 /// Main item component. Attach to any scene object that the detective can inspect.
 /// Supports both sprite-based and mesh-based items.
 /// </summary>
-public class InspectableItem : MonoBehaviour, IInspectable
+public class InspectableItem : MonoBehaviour, IInspectable, IInteractable
 {
     [SerializeField] private ItemData data;
 
@@ -36,8 +36,10 @@ public class InspectableItem : MonoBehaviour, IInspectable
         }
     }
 
+    public void Interact() => BeginInspection();
+
     /// <summary>
-    /// Called by ItemSelector when the player clicks this item.
+    /// Called by InspectionManager when the player clicks this item.
     /// </summary>
     public void BeginInspection()
     {
