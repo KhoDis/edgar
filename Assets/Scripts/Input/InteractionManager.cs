@@ -80,11 +80,11 @@ public class InteractionManager : MonoBehaviour
 
     private Vector2 GetScreenPosition()
     {
-        if (Mouse.current != null)
-            return Mouse.current.position.ReadValue();
-
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
             return Touchscreen.current.primaryTouch.position.ReadValue();
+
+        if (Mouse.current != null)
+            return Mouse.current.position.ReadValue();
 
         return Vector2.zero;
     }

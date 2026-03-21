@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c74302e4add4c88bcdcacf6cba2d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
-  maxRaycastDistance: 100
+  maxRaycastDistance: 1000
   interactionMask:
     serializedVersion: 2
     m_Bits: 704
@@ -512,11 +512,11 @@ GameObject:
   - component: {fileID: 287546979}
   - component: {fileID: 287546978}
   - component: {fileID: 287546977}
-  - component: {fileID: 287546976}
   - component: {fileID: 287546975}
   - component: {fileID: 287546974}
   - component: {fileID: 287546973}
   - component: {fileID: 287546972}
+  - component: {fileID: 287546981}
   m_Layer: 6
   m_Name: InteractiveCharacter (1)
   m_TagString: Untagged
@@ -607,27 +607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugLogAction
   customMessage: CLICKED
---- !u!65 &287546976
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287546971}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5, y: 4.52, z: 0.2}
-  m_Center: {x: 0, y: 2.26, z: 0}
 --- !u!114 &287546977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,6 +707,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15.834, y: 110.161, z: 14.319}
+--- !u!65 &287546981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287546971}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.000001, y: 12.002931, z: 0.20000017}
+  m_Center: {x: 0.00000006451038, y: 6.001466, z: 0.000000029540537}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2538,6 +2538,32 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1964602097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 479466414129824153, guid: b13035448fcf64be480bbd01d7f77886, type: 3}
+  m_PrefabInstance: {fileID: 3250233497277961798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1964602102
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964602097}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.735, y: 0.722, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1976198484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,10 +2835,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1239831977864508673, guid: b13035448fcf64be480bbd01d7f77886, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 479466414129824153, guid: b13035448fcf64be480bbd01d7f77886, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1964602102}
   m_SourcePrefab: {fileID: 100100000, guid: b13035448fcf64be480bbd01d7f77886, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
