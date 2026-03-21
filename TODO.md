@@ -18,7 +18,11 @@
 - Test on device or Unity Remote
 
 ### Phase 8 — Polish
-- Hover highlight on `ItemSelector` (currently changes material color — may need shader support)
+- ~~Hover highlight on `ItemSelector`~~ — removed, mobile-first (no cursor)
+- Add permanent visual cue for interactable characters and items (outline, glow, or icon above head)
+  - Options: outline shader (URP has built-in), sprite overlay (exclamation mark icon), idle animation (pulse/bob)
+  - Should be driven by `isInteractive` on `CharacterData` / `ItemData` — non-interactive objects get no cue
+  - Lives on the `Character` / `InspectableItem` component, not on input managers
 - UI fade animation on show/hide (replace SetActive with CanvasGroup alpha tween)
-- Test `CharacterSelector` + `ItemSelector` coexistence (click characters and items in same scene)
+- Test `CharacterInputManager` + `ItemSelector` coexistence (tap characters and items in same scene)
 - Test on mobile end to end (tap to open, drag to rotate, pinch to zoom, close button to exit)

@@ -14,8 +14,7 @@ public class InspectionManager : MonoBehaviour
     [SerializeField] private Transform inspectionAnchor;
     [SerializeField] private InspectionUI inspectionUI;
     [SerializeField] private InspectionInputHandler inputHandler;
-    [SerializeField] private CharacterSelector characterSelector;
-    [SerializeField] private NavigationUI navigationUI;
+[SerializeField] private NavigationUI navigationUI;
 
     [Header("Inspection Settings")]
     [SerializeField] private float rotationSensitivity = 0.3f;
@@ -61,7 +60,7 @@ public class InspectionManager : MonoBehaviour
             item.gameObject.SetActive(false);
 
         // Hand off input
-        if (characterSelector != null) characterSelector.enabled = false;
+        if (CharacterInputManager.Instance != null) CharacterInputManager.Instance.enabled = false;
         if (navigationUI != null) navigationUI.enabled = false;
         if (inputHandler != null) inputHandler.enabled = true;
 
@@ -85,7 +84,7 @@ public class InspectionManager : MonoBehaviour
 
         // Restore input
         if (inputHandler != null) inputHandler.enabled = false;
-        if (characterSelector != null) characterSelector.enabled = true;
+        if (CharacterInputManager.Instance != null) CharacterInputManager.Instance.enabled = true;
         if (navigationUI != null) navigationUI.enabled = true;
 
         inspectionUI.Hide();

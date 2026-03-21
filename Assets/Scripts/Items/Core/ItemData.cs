@@ -32,8 +32,9 @@ public class ItemData : ScriptableObject
     [Tooltip("Can this item be clicked and inspected?")]
     public bool isInteractive = true;
 
-    [Header("Detective")]
-    [Tooltip("Note automatically added to the detective notebook on first inspection")]
-    [TextArea(2, 4)]
-    public string clueNote;
+    // NOTE: we can add more game logic here later
+    // [Header("Detective")]
+    // [Tooltip("Note automatically added to the detective notebook on first inspection")]
+    // [TextArea(2, 4)]
+    // public string clueNote;
 }

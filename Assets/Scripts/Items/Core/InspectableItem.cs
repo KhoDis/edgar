@@ -20,14 +20,8 @@ public class InspectableItem : MonoBehaviour, IInspectable
         _actions = GetComponents<IItemAction>();
         _renderer = GetComponent<Renderer>();
 
-        if (data != null)
-        {
-            ApplyItemData();
-        }
-        else
-        {
+        if (data == null)
             Debug.LogWarning($"[InspectableItem] Item data is null on {gameObject.name}");
-        }
     }
 
     void ApplyItemData()
@@ -105,14 +99,8 @@ public class InspectableItem : MonoBehaviour, IInspectable
 #if UNITY_EDITOR
     void OnValidate()
     {
-        if (data != null && data.sprite != null)
-        {
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr != null)
-            {
-                sr.sprite = data.sprite;
-            }
-        }
+        if (data != null)
+            ApplyItemData();
     }
 #endif
 }
