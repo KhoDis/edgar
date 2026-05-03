@@ -16,6 +16,7 @@ public class InteractionManager : MonoBehaviour
     private Camera _mainCamera;
     private InputAction _interactAction;
     private float _lastInteractionTime;
+    private Vector2 _lastPointerPosition;
     private const float INTERACTION_COOLDOWN = 0.2f;
 
     void Awake()
@@ -44,6 +45,14 @@ public class InteractionManager : MonoBehaviour
     void OnEnable() => _interactAction?.Enable();
 
     void OnDisable() => _interactAction?.Disable();
+
+    void Update()
+    {
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            _lastPointerPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        else if (Mouse.current != null)
+            _lastPointerPosition = Mouse.current.position.ReadValue();
+    }
 
     void OnDestroy()
     {
@@ -78,14 +87,5 @@ public class InteractionManager : MonoBehaviour
         return null;
     }
 
-    private Vector2 GetScreenPosition()
-    {
-        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-            return Touchscreen.current.primaryTouch.position.ReadValue();
-
-        if (Mouse.current != null)
-            return Mouse.current.position.ReadValue();
-
-        return Vector2.zero;
-    }
+    private Vector2 GetScreenPosition() => _lastPointerPosition;
 }
