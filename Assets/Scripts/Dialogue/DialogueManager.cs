@@ -1,16 +1,13 @@
 using UnityEngine;
 using Yarn.Unity;
 
-/// <summary>
-/// Singleton that owns the Yarn Spinner DialogueRunner.
-/// Disables interaction and navigation input while a conversation is active.
-/// </summary>
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
 
     [SerializeField] private DialogueRunner dialogueRunner;
     [SerializeField] private NavigationUI navigationUI;
+    [SerializeField] private GameObject dialoguePanel;
 
     public bool IsDialogueActive => dialogueRunner != null && dialogueRunner.IsDialogueRunning;
 
@@ -26,11 +23,10 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+
         if (dialogueRunner != null)
-        {
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-            dialogueRunner.onDialogueStart.AddListener(() => Debug.Log($"[Dialogue] started, presenters: {string.Join(", ", dialogueRunner.DialoguePresenters)}"));
-        }
     }
 
     void OnDestroy()
@@ -42,10 +38,9 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(string nodeName)
     {
         if (IsDialogueActive) return;
-        if (dialogueRunner == null) { Debug.LogWarning("[Dialogue] dialogueRunner is null"); return; }
+        if (dialogueRunner == null) return;
 
-        Debug.Log($"[Dialogue] calling StartDialogue({nodeName}), project={dialogueRunner.YarnProject?.name ?? "NULL"}");
-
+        if (dialoguePanel != null) dialoguePanel.SetActive(true);
         if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
         if (navigationUI != null) navigationUI.enabled = false;
 
@@ -54,7 +49,7 @@ public class DialogueManager : MonoBehaviour
 
     private void OnDialogueComplete()
     {
-        Debug.Log("[Dialogue] complete");
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
         if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
         if (navigationUI != null) navigationUI.enabled = true;
     }
